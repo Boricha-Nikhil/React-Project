@@ -2,12 +2,27 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react'
+import { persistor, store } from "./store/index"
+import {
+  BrowserRouter as Router,
+} from "react-router-dom";
+import SnackbarProvider from 'react-simple-snackbar'
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <Router>
+          <SnackbarProvider>
+            <App />
+          </SnackbarProvider>
+        </Router>
+      </PersistGate>
+    </Provider>
   </React.StrictMode>
 );
 
